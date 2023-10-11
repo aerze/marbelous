@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0qcqluctud4v"]
+
+[ext_resource type="Texture2D" uid="uid://qcnc0potod6j" path="res://assets/suika_blob6.png" id="1_7626h"]
+[ext_resource type="Script" path="res://marbles/marble_6.gd" id="1_ke4i1"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_o50eo"]
+friction = 0.5
+bounce = 0.35
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dcd0m"]
+radius = 49.0
+
+[node name="marble_6" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_o50eo")
+max_contacts_reported = 8
+contact_monitor = true
+can_sleep = false
+script = ExtResource("1_ke4i1")
+type = 5
+
+[node name="SuikaBlob6" type="Sprite2D" parent="."]
+texture = ExtResource("1_7626h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_dcd0m")

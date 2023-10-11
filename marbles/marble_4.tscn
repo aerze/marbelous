@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://ijq8w5pqnjk0"]
+
+[ext_resource type="Script" path="res://marbles/marble_4.gd" id="1_sfyp5"]
+[ext_resource type="Texture2D" uid="uid://dyduqwkgni6ok" path="res://assets/suika_blob4.png" id="1_wgn3h"]
+[ext_resource type="PackedScene" uid="uid://1lixpl0mcjgk" path="res://marbles/marble_5.tscn" id="2_niumd"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ndecv"]
+friction = 0.5
+bounce = 0.54
+
+[node name="marble_4" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_ndecv")
+max_contacts_reported = 8
+contact_monitor = true
+can_sleep = false
+script = ExtResource("1_sfyp5")
+NextMarble = ExtResource("2_niumd")
+type = 3
+
+[node name="SuikaBlob4" type="Sprite2D" parent="."]
+texture = ExtResource("1_wgn3h")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(1, -26, 16, -19, 26, -9, 30, 1, 28, 19, 17, 30, -17, 30, -37, 13, -38, 1, -25, -15, -10, -25)

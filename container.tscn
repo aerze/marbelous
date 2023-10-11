@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckm8b3hgh0fb4"]
+
+[ext_resource type="Texture2D" uid="uid://boev3txqriujc" path="res://assets/backgrounds/container.png" id="1_b20mi"]
+
+[node name="Container" type="Sprite2D"]
+texture = ExtResource("1_b20mi")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(186, -127, 171, 195, -138, 191, -150, -119, -164, -124, -161, 217, 199, 221, 205, -127)
