@@ -13,6 +13,7 @@ radius = 32.0
 height = 90.0
 
 [node name="marble_5" type="RigidBody2D"]
+collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_5dxvs")
 max_contacts_reported = 8
 contact_monitor = true

@@ -12,6 +12,7 @@ bounce = 0.81
 radius = 21.0238
 
 [node name="marble_2" type="RigidBody2D"]
+collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_sj5cw")
 max_contacts_reported = 8
 contact_monitor = true

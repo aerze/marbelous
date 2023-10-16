@@ -15,8 +15,13 @@ enum MarbleType {
 @export var type: MarbleType;
 
 var hit = false;
+var main: Main;
 
 func _ready() -> void:
+	add_to_group("marbles");
+	var node = get_tree().get_first_node_in_group("Main");
+	if (node is Main): main = node;
+	
 	if (type == MarbleType.MARBLE_6):
 		return;
 	body_entered.connect(_on_body_entered);
@@ -33,6 +38,8 @@ func _on_body_entered(body: Node) -> void:
 
 		hit = true;
 		body.hit = true;
+		
+		main.handleHit(type);
 		
 		var marble = NextMarble.instantiate();
 		add_sibling(marble);

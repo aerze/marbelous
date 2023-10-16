@@ -66,6 +66,12 @@ move_right={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Marbles"
+2d_physics/layer_2="Container"
+2d_physics/layer_3="NoGoZone"
+
 [rendering]
 
 renderer/rendering_method="mobile"

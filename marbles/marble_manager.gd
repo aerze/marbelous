@@ -21,6 +21,15 @@ var marbleToScene = {
 	Marble.MarbleType.MARBLE_6: marble_6,
 }
 
+var marbleToPoints = {
+	Marble.MarbleType.MARBLE_1: 2,
+	Marble.MarbleType.MARBLE_2: 5,
+	Marble.MarbleType.MARBLE_3: 10,
+	Marble.MarbleType.MARBLE_4: 20,
+	Marble.MarbleType.MARBLE_5: 50,
+	Marble.MarbleType.MARBLE_6: 75,
+}
+
 var marbleToSprite = {
 	Marble.MarbleType.MARBLE_1: preload("res://assets/suika_blob1.png"),
 	Marble.MarbleType.MARBLE_2: preload("res://assets/suika_blob2.png"),
@@ -41,20 +50,19 @@ var currentMarble: Marble.MarbleType;
 var nextMarble: Marble.MarbleType;
 var keys = Marble.MarbleType.keys();
 
+func getAll() -> Array[Marble]:
+	var marbles: Array[Marble] = [];
+	for node in get_tree().get_nodes_in_group("marbles"):
+		if (node is Marble):
+			marbles.push_front(node as Marble)
+	return marbles;
 
 func reload() -> void:
 	currentMarble = nextMarble;
 	nextMarble = droppableMarbles[randi_range(0, droppableMarbles.size() - 1)];
 	marble_reload.emit(currentMarble, nextMarble);
 
-	# currentLabel.text = "Current Marble: " + str(keys[currentMarble]);
-	# nextLabel.text = "Next Marble: " + str(keys[nextMarble]);
-	# dropSprite.texture = marbleToSprite[currentMarble];
-
 func drop(spawnPosition: Vector2) -> Marble:
 	var marble = marbleToScene[currentMarble].instantiate();
 	marble.global_position = spawnPosition
 	return marble
-#
-#	add_child(marble);
-#	reload();
