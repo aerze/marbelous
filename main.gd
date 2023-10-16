@@ -13,6 +13,13 @@ class_name Main
 @onready var cursor: CursorSprite2D = $drop_cursor
 @onready var dropCheckTimer: Timer = $DropCheckTimer
 @onready var noZone: Area2D = $DoNotPassGoZone
+@onready var mobile_control: Control = $UICanvasLayer/Control/MobileControl
+@onready var button_left: TouchScreenButton = $UICanvasLayer/Control/MobileControl/ButtonLeft
+@onready var button_right: TouchScreenButton = $UICanvasLayer/Control/MobileControl/ButtonRight
+@onready var button_drop: TouchScreenButton = $UICanvasLayer/Control/MobileControl/ButtonDrop
+#@onready var left_button: Button = $UICanvasLayer/Control/MobileControl/LeftButton
+#@onready var drop_button: Button = $UICanvasLayer/Control/MobileControl/DropButton
+#@onready var right_button: Button = $UICanvasLayer/Control/MobileControl/RightButton
 
 enum GameState {
 	READY,
@@ -42,9 +49,13 @@ func _ready() -> void:
   # lock in cursor position
 	cursor.position.x = cursor.cursorStart;
 	cursor.position.y = cursor.getHeight();
+	
+	if (OS.get_name() == "Android"):
+		mobile_control.show();
 	return;
 
 func _input(event: InputEvent) -> void:
+	if (OS.get_name() == "Android"): return;
 	if (event.is_action_pressed("drop")):
 		handleDrop();
 	return;
@@ -59,8 +70,8 @@ func _process(delta: float) -> void:
 	
 func handleInput(delta: float) -> void:
 	if (gameState == GameState.GAME_OVER): return;
-	var left = Input.is_action_pressed("move_left");
-	var right = Input.is_action_pressed("move_right");
+	var left = Input.is_action_pressed("move_left") || button_left.is_pressed();
+	var right = Input.is_action_pressed("move_right") || button_right.is_pressed();
 	
 	if (left || right):
 		cursor.position.y = cursor.getHeight();
@@ -103,3 +114,8 @@ func _on_reset_button_pressed() -> void:
 	for marble in Marbles.getAll():
 		marble.freeze = true;
 		marble.queue_free();
+
+
+func _on_button_drop_pressed() -> void:
+	handleDrop()
+	pass # Replace with function body.

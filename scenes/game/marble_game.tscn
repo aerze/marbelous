@@ -1,10 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://b5erlu86wh5p1"]
+[gd_scene load_steps=9 format=3 uid="uid://b5erlu86wh5p1"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_f6q21"]
 [ext_resource type="Texture2D" uid="uid://cormgwc1lnels" path="res://assets/backgrounds/office.png" id="2_af7h7"]
 [ext_resource type="Texture2D" uid="uid://b68jgyix7vvef" path="res://assets/suika_blob1.png" id="3_31c8a"]
 [ext_resource type="Texture2D" uid="uid://qcnc0potod6j" path="res://assets/suika_blob6.png" id="3_goagd"]
 [ext_resource type="Script" path="res://scenes/game/cursor.gd" id="4_p21gx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0tch5"]
+size = Vector2(120, 175)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_27lh5"]
+size = Vector2(400, 175)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v1h67"]
 size = Vector2(780, 454)
@@ -60,6 +66,7 @@ offset_bottom = 35.0
 text = "Next Marble: "
 
 [node name="NextTextureRect" type="TextureRect" parent="UICanvasLayer/Control"]
+layout_mode = 0
 offset_left = 123.0
 offset_top = 78.0
 offset_right = 184.0
@@ -101,6 +108,47 @@ offset_right = 586.0
 offset_bottom = 125.0
 text = "Reset"
 
+[node name="MobileControl" type="Control" parent="UICanvasLayer/Control"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LeftButton" type="Button" parent="UICanvasLayer/Control/MobileControl"]
+offset_left = -9.0
+offset_top = 779.0
+offset_right = 114.0
+offset_bottom = 952.0
+text = "<"
+
+[node name="DropButton" type="Button" parent="UICanvasLayer/Control/MobileControl"]
+layout_mode = 0
+offset_left = 127.0
+offset_top = 781.0
+offset_right = 507.0
+offset_bottom = 953.0
+text = "drop"
+
+[node name="Button3" type="Button" parent="UICanvasLayer/Control/MobileControl"]
+layout_mode = 0
+offset_left = 518.0
+offset_top = 780.0
+offset_right = 641.0
+offset_bottom = 952.0
+text = ">"
+
+[node name="ButtonLeft" type="TouchScreenButton" parent="UICanvasLayer/Control/MobileControl"]
+position = Vector2(52, 865)
+shape = SubResource("RectangleShape2D_0tch5")
+
+[node name="ButtonRight" type="TouchScreenButton" parent="UICanvasLayer/Control/MobileControl"]
+position = Vector2(580, 867)
+shape = SubResource("RectangleShape2D_0tch5")
+
+[node name="ButtonDrop" type="TouchScreenButton" parent="UICanvasLayer/Control/MobileControl"]
+position = Vector2(315, 867)
+shape = SubResource("RectangleShape2D_27lh5")
+
 [node name="drop_cursor" type="Sprite2D" parent="."]
 position = Vector2(570, 255)
 texture = ExtResource("3_31c8a")
@@ -117,3 +165,4 @@ shape = SubResource("RectangleShape2D_v1h67")
 one_shot = true
 
 [connection signal="pressed" from="UICanvasLayer/Control/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="UICanvasLayer/Control/MobileControl/ButtonDrop" to="." method="_on_button_drop_pressed"]

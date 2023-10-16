@@ -25,6 +25,10 @@ boot_splash/minimum_display_time=1500
 
 window/size/viewport_width=640
 window/size/viewport_height=960
+window/size/resizable=false
+window/size/borderless=true
+window/stretch/mode="canvas_items"
+window/handheld/orientation=1
 
 [editor]
 
@@ -75,3 +79,5 @@ move_right={
 [rendering]
 
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.133333, 0.12549, 0.203922, 1)
