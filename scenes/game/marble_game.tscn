@@ -1,9 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://b5erlu86wh5p1"]
+[gd_scene load_steps=8 format=3 uid="uid://b5erlu86wh5p1"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_f6q21"]
 [ext_resource type="Texture2D" uid="uid://cormgwc1lnels" path="res://assets/backgrounds/office.png" id="2_af7h7"]
-[ext_resource type="Texture2D" uid="uid://b68jgyix7vvef" path="res://assets/suika_blob1.png" id="3_31c8a"]
-[ext_resource type="Texture2D" uid="uid://qcnc0potod6j" path="res://assets/suika_blob6.png" id="3_goagd"]
+[ext_resource type="Texture2D" uid="uid://chfopieqli0rb" path="res://assets/marbles/rubberband_ball.png" id="4_5fghs"]
 [ext_resource type="Script" path="res://scenes/game/cursor.gd" id="4_p21gx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0tch5"]
@@ -66,13 +65,12 @@ offset_bottom = 35.0
 text = "Next Marble: "
 
 [node name="NextTextureRect" type="TextureRect" parent="UICanvasLayer/Control"]
-layout_mode = 0
-offset_left = 123.0
-offset_top = 78.0
-offset_right = 184.0
-offset_bottom = 135.0
-texture = ExtResource("3_goagd")
-expand_mode = 1
+layout_mode = 1
+offset_left = 133.0
+offset_top = 77.0
+offset_right = 194.0
+offset_bottom = 134.0
+expand_mode = 3
 
 [node name="PointsLabel" type="Label" parent="UICanvasLayer/Control"]
 layout_mode = 1
@@ -151,7 +149,8 @@ shape = SubResource("RectangleShape2D_27lh5")
 
 [node name="drop_cursor" type="Sprite2D" parent="."]
 position = Vector2(570, 255)
-texture = ExtResource("3_31c8a")
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_5fghs")
 script = ExtResource("4_p21gx")
 
 [node name="DoNotPassGoZone" type="Area2D" parent="."]

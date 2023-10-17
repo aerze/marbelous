@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bt4sppfu2r33l"]
+[gd_scene load_steps=7 format=3 uid="uid://bt4sppfu2r33l"]
 
 [ext_resource type="Script" path="res://marbles/marble_1.gd" id="1_g4w78"]
 [ext_resource type="Texture2D" uid="uid://b68jgyix7vvef" path="res://assets/suika_blob1.png" id="1_gykkr"]
 [ext_resource type="PackedScene" uid="uid://bt6f5k8hf6kts" path="res://marbles/marble_2.tscn" id="2_lmo53"]
+[ext_resource type="Texture2D" uid="uid://chfopieqli0rb" path="res://assets/marbles/rubberband_ball.png" id="3_tnmdh"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1u0gl"]
 friction = 0.5
@@ -20,7 +21,13 @@ can_sleep = false
 script = ExtResource("1_g4w78")
 NextMarble = ExtResource("2_lmo53")
 
+[node name="RubberbandBall" type="Sprite2D" parent="."]
+position = Vector2(-3.8147e-06, -3.8147e-06)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_tnmdh")
+
 [node name="SuikaBlob1" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("1_gykkr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

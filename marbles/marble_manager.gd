@@ -31,12 +31,21 @@ var marbleToPoints = {
 }
 
 var marbleToSprite = {
-	Marble.MarbleType.MARBLE_1: preload("res://assets/suika_blob1.png"),
-	Marble.MarbleType.MARBLE_2: preload("res://assets/suika_blob2.png"),
-	Marble.MarbleType.MARBLE_3: preload("res://assets/suika_blob3.png"),
+	Marble.MarbleType.MARBLE_1: preload("res://assets/marbles/rubberband_ball.png"),
+	Marble.MarbleType.MARBLE_2: preload("res://assets/marbles/crumpled_paper.png"),
+	Marble.MarbleType.MARBLE_3: preload("res://assets/marbles/coffee_mug.png"),
 	Marble.MarbleType.MARBLE_4: preload("res://assets/suika_blob4.png"),
 	Marble.MarbleType.MARBLE_5: preload("res://assets/suika_blob5.png"),
 	Marble.MarbleType.MARBLE_6: preload("res://assets/suika_blob6.png"),
+}
+
+var marbleToScale = {
+	Marble.MarbleType.MARBLE_1: Vector2(0.2, 0.2),
+	Marble.MarbleType.MARBLE_2: Vector2(0.3, 0.3),
+	Marble.MarbleType.MARBLE_3: Vector2(0.4, 0.4),
+	Marble.MarbleType.MARBLE_4: Vector2(1.0, 1.0),
+	Marble.MarbleType.MARBLE_5: Vector2(1.0, 1.0),
+	Marble.MarbleType.MARBLE_6: Vector2(1.0, 1.0),
 }
 
 var droppableMarbles: Array[Marble.MarbleType] = [
@@ -46,9 +55,12 @@ var droppableMarbles: Array[Marble.MarbleType] = [
 	Marble.MarbleType.MARBLE_4
 ];
 
-var currentMarble: Marble.MarbleType;
-var nextMarble: Marble.MarbleType;
+var currentMarble: Marble.MarbleType = getRandomMarble();
+var nextMarble: Marble.MarbleType = getRandomMarble();
 var keys = Marble.MarbleType.keys();
+
+func getRandomMarble() -> Marble.MarbleType:
+	return droppableMarbles[randi_range(0, droppableMarbles.size() - 1)];
 
 func getAll() -> Array[Marble]:
 	var marbles: Array[Marble] = [];
@@ -59,7 +71,7 @@ func getAll() -> Array[Marble]:
 
 func reload() -> void:
 	currentMarble = nextMarble;
-	nextMarble = droppableMarbles[randi_range(0, droppableMarbles.size() - 1)];
+	nextMarble = getRandomMarble();
 	marble_reload.emit(currentMarble, nextMarble);
 
 func drop(spawnPosition: Vector2) -> Marble:
