@@ -1,11 +1,38 @@
-[gd_scene load_steps=10 format=3 uid="uid://b5erlu86wh5p1"]
+[gd_scene load_steps=12 format=3 uid="uid://b5erlu86wh5p1"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_f6q21"]
 [ext_resource type="Texture2D" uid="uid://cormgwc1lnels" path="res://assets/backgrounds/office.png" id="2_af7h7"]
-[ext_resource type="Script" path="res://gameplay/marble_manager.gd" id="2_mgsod"]
-[ext_resource type="Resource" uid="uid://blubow3o77ngv" path="res://default_marble_set.tres" id="3_aqlse"]
+[ext_resource type="Script" path="res://marbles/marble_manager.gd" id="2_gq1hv"]
+[ext_resource type="PackedScene" uid="uid://yltqv17bidxv" path="res://marbles/rubberband_ball.tscn" id="3_7l8cw"]
+[ext_resource type="Script" path="res://marbles/marble_set.gd" id="3_b0c8y"]
 [ext_resource type="Texture2D" uid="uid://cwu32wl6i4t5o" path="res://assets/marbles/rubberband_ball.png" id="4_5fghs"]
 [ext_resource type="Script" path="res://scenes/game/cursor.gd" id="4_p21gx"]
+
+[sub_resource type="Resource" id="Resource_ut3ys"]
+script = ExtResource("3_b0c8y")
+marble_0 = ExtResource("3_7l8cw")
+marble_0_points = 2.0
+marble_0_scale = Vector2(1, 1)
+marble_1_points = 5.0
+marble_1_scale = Vector2(1, 1)
+marble_2_points = 10.0
+marble_2_scale = Vector2(1, 1)
+marble_3_points = 20.0
+marble_3_scale = Vector2(1, 1)
+marble_4_points = 50.0
+marble_4_scale = Vector2(1, 1)
+marble_5_points = 75.0
+marble_5_scale = Vector2(1, 1)
+marble_6_points = 100.0
+marble_6_scale = Vector2(1, 1)
+marble_7_points = 200.0
+marble_7_scale = Vector2(1, 1)
+marble_8_points = 300.0
+marble_8_scale = Vector2(1, 1)
+marble_9_points = 500.0
+marble_9_scale = Vector2(1, 1)
+marble_10_points = 1000.0
+marble_10_scale = Vector2(1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0tch5"]
 size = Vector2(120, 175)
@@ -20,8 +47,8 @@ size = Vector2(780, 454)
 script = ExtResource("1_f6q21")
 
 [node name="MarbleManager" type="Node" parent="."]
-script = ExtResource("2_mgsod")
-marbleSet = ExtResource("3_aqlse")
+script = ExtResource("2_gq1hv")
+marbleSet = SubResource("Resource_ut3ys")
 
 [node name="BackgroundCanvasLayer" type="CanvasLayer" parent="."]
 layer = -1

@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://b5erlu86wh5p1"]
+[gd_scene load_steps=9 format=3 uid="uid://b5erlu86wh5p1"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_f6q21"]
 [ext_resource type="Texture2D" uid="uid://cormgwc1lnels" path="res://assets/backgrounds/office.png" id="2_af7h7"]
-[ext_resource type="Script" path="res://gameplay/marble_manager.gd" id="2_mgsod"]
-[ext_resource type="Resource" uid="uid://blubow3o77ngv" path="res://default_marble_set.tres" id="3_aqlse"]
+[ext_resource type="Script" path="res://marbles/marble_manager.gd" id="2_gq1hv"]
 [ext_resource type="Texture2D" uid="uid://cwu32wl6i4t5o" path="res://assets/marbles/rubberband_ball.png" id="4_5fghs"]
 [ext_resource type="Script" path="res://scenes/game/cursor.gd" id="4_p21gx"]
 
@@ -20,8 +19,7 @@ size = Vector2(780, 454)
 script = ExtResource("1_f6q21")
 
 [node name="MarbleManager" type="Node" parent="."]
-script = ExtResource("2_mgsod")
-marbleSet = ExtResource("3_aqlse")
+script = ExtResource("2_gq1hv")
 
 [node name="BackgroundCanvasLayer" type="CanvasLayer" parent="."]
 layer = -1

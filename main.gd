@@ -14,27 +14,27 @@ class_name Main
 @onready var button_right: TouchScreenButton = $UICanvasLayer/Control/MobileControl/ButtonRight
 @onready var button_drop: TouchScreenButton = $UICanvasLayer/Control/MobileControl/ButtonDrop
 
+@onready var manager: Node = $MarbleManager
+
 enum GameState {
 	READY,
 	DROPPING,
 	GAME_OVER,
 }
 
-var Marbles = MarbleManager.new();
 var gameState: GameState = GameState.READY:
 	set(value):
 		gameState = value;
 		gameStateLabel.text = str("GameState: ",  GameState.keys()[value]);
-		
+
 var points: int = 0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# initialize marbles
-	add_child(Marbles);
-	Marbles.marble_reload.connect(handleStateUpdate);
+	manager.marble_reload.connect(handleStateUpdate);
 	dropCheckTimer.timeout.connect(handleFinishedDropping);
-	Marbles.reload();
+	manager.reload();
 	
 	# hide hardware cursor
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN;
@@ -76,35 +76,37 @@ func handleInput(delta: float) -> void:
 func handleGameOver() -> void:
 	dropCheckTimer.stop();
 	gameState = GameState.GAME_OVER;
-	for marble in Marbles.getAll():
+	for marble in manager.getAllActiveMarbles():
 		marble.freeze = true;
 
 func handleDrop() -> void:
 	if (gameState == GameState.GAME_OVER): return;
 	gameState = GameState.DROPPING;
 	dropCheckTimer.start();
-	add_child(Marbles.drop(cursor.position));
-	Marbles.reload();
+	var marble: Marble = manager.drop(cursor.position)
+	add_child(marble);
+	var scale = manager.marbleSet.getScale(marble.type);
+	manager.reload();
 
 func handleFinishedDropping() -> void:
 	gameState = GameState.READY;
 	return;
 
-func handleStateUpdate(currentMarble: Marble.MarbleType, nextMarble: Marble.MarbleType) -> void:
+func handleStateUpdate(currentMarbleType: Marble.Type, nextMarbleType: Marble.Type) -> void:
 	if (gameState == GameState.GAME_OVER): return;
-	nextTextureRect.texture = Marbles.marbleToSprite[nextMarble];
-	cursor.texture = Marbles.marbleToSprite[currentMarble];
-	cursor.scale = Marbles.marbleToScale[currentMarble];
+	nextTextureRect.texture = manager.marbleSet.getTexture(nextMarbleType);
+	cursor.texture = manager.marbleSet.getTexture(currentMarbleType);
+	cursor.scale = manager.marbleSet.getScale(currentMarbleType);
 
-func handleHit(type: Marble.MarbleType) -> void:
-	points += Marbles.marbleToPoints[type];
+func handleHit(type: Marble.Type) -> void:
+	points += manager.marbleSet.getPoints(type);
 	pointsLabel.text = str("Points: ", points);
 	pass;
 
 func _on_reset_button_pressed() -> void:
 	if (gameState != GameState.GAME_OVER): return;
 	
-	for marble in Marbles.getAll():
+	for marble in manager.getAllActiveMarbles():
 		marble.freeze = true;
 		marble.queue_free();
 	await get_tree().physics_frame;
@@ -114,12 +116,12 @@ func _on_reset_button_pressed() -> void:
 	points = 0;
 	pointsLabel.text = "Points: 0";
 	
-	Marbles.nextMarble = Marbles.getRandomMarble();
-	Marbles.currentMarble = Marbles.getRandomMarble();
+	manager.nextMarbleType = manager.getRandomMarble();
+	manager.currentMarbleType = manager.getRandomMarble();
 	
-	nextTextureRect.texture = Marbles.marbleToSprite[Marbles.nextMarble];
-	cursor.texture = Marbles.marbleToSprite[Marbles.currentMarble];
-	cursor.scale = Marbles.marbleToScale[Marbles.currentMarble];
+	nextTextureRect.texture = manager.marbleSet.getTexture(manager.nextMarbleType);
+	cursor.texture = manager.marbleSet.getTexture(manager.currentMarbleType);
+	cursor.scale = manager.marbleSet.getScale(manager.currentMarbleType);
 	
 	cursor.position.x = cursor.cursorStart;
 	cursor.position.y = cursor.getHeight();

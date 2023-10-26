@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bt6f5k8hf6kts"]
+
+[ext_resource type="Script" path="res://gameplay/marble.gd" id="1_5tkdp"]
+[ext_resource type="Texture2D" uid="uid://bkstiih7i3f87" path="res://assets/marbles/crumpled_paper.png" id="1_bkoic"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sj5cw"]
+friction = 0.5
+bounce = 0.75
+absorbent = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2qy4x"]
+radius = 65.0077
+
+[node name="crumpled_paper" type="RigidBody2D"]
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_sj5cw")
+max_contacts_reported = 8
+contact_monitor = true
+can_sleep = false
+script = ExtResource("1_5tkdp")
+
+[node name="CrumpledPaper" type="Sprite2D" parent="."]
+texture = ExtResource("1_bkoic")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2qy4x")

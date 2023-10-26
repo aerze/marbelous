@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://ijq8w5pqnjk0"]
+
+[ext_resource type="Script" path="res://gameplay/marble.gd" id="1_7f2rd"]
+[ext_resource type="Texture2D" uid="uid://2fvyfnhpktpp" path="res://assets/marbles/keycard.png" id="3_athme"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ndecv"]
+friction = 0.5
+bounce = 0.54
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_15v5w"]
+size = Vector2(88, 129)
+
+[node name="keycard" type="RigidBody2D"]
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_ndecv")
+max_contacts_reported = 8
+contact_monitor = true
+can_sleep = false
+script = ExtResource("1_7f2rd")
+
+[node name="Keycard" type="Sprite2D" parent="."]
+texture = ExtResource("3_athme")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_15v5w")

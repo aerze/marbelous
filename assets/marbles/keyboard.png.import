@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwu32wl6i4t5o"
-path="res://.godot/imported/rubberband_ball.png-82d50c625844199d3687ed89a92ba36c.ctex"
+uid="uid://b2kcol82k5p3k"
+path="res://.godot/imported/keyboard.png-26997da6149861e5b96d3e558955979a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/marbles/rubberband_ball.png"
-dest_files=["res://.godot/imported/rubberband_ball.png-82d50c625844199d3687ed89a92ba36c.ctex"]
+source_file="res://assets/marbles/keyboard.png"
+dest_files=["res://.godot/imported/keyboard.png-26997da6149861e5b96d3e558955979a.ctex"]
 
 [params]
 

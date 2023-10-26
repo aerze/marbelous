@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgn88mw260yuv"]
+
+[ext_resource type="Script" path="res://gameplay/marble.gd" id="1_17if5"]
+[ext_resource type="Texture2D" uid="uid://b2kcol82k5p3k" path="res://assets/marbles/keyboard.png" id="1_ij3jp"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_o50eo"]
+friction = 0.5
+bounce = 0.35
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jqol5"]
+size = Vector2(208, 68)
+
+[node name="keyboard" type="RigidBody2D"]
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_o50eo")
+max_contacts_reported = 8
+contact_monitor = true
+can_sleep = false
+script = ExtResource("1_17if5")
+
+[node name="Keyboard" type="Sprite2D" parent="."]
+texture = ExtResource("1_ij3jp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_jqol5")

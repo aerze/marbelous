@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://c26qxfjo4lnqs"]
+
+[ext_resource type="Script" path="res://gameplay/marble.gd" id="1_1cgdu"]
+[ext_resource type="Texture2D" uid="uid://c1mh614uq2ogl" path="res://assets/marbles/chair.png" id="1_ir7ar"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_o50eo"]
+friction = 0.5
+bounce = 0.35
+
+[node name="chair" type="RigidBody2D"]
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_o50eo")
+max_contacts_reported = 8
+contact_monitor = true
+can_sleep = false
+script = ExtResource("1_1cgdu")
+
+[node name="Chair" type="Sprite2D" parent="."]
+texture = ExtResource("1_ir7ar")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(5, -64, 12, -59, 17, -22, 50, -8, 48, 1, 33, -3, 32, 7, 37, 15, 37, 24, 25, 36, 39, 47, 30, 67, 13, 54, -17, 53, -31, 66, -37, 61, -38, 45, -28, 37, -37, 28, -36, 5, -55, -6, -44, -14, -44, -44, -35, -64)

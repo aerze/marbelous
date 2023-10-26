@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwu32wl6i4t5o"
-path="res://.godot/imported/rubberband_ball.png-82d50c625844199d3687ed89a92ba36c.ctex"
+uid="uid://c1mh614uq2ogl"
+path="res://.godot/imported/chair.png-13cf18f1680ab74d00fde631a8ea5987.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/marbles/rubberband_ball.png"
-dest_files=["res://.godot/imported/rubberband_ball.png-82d50c625844199d3687ed89a92ba36c.ctex"]
+source_file="res://assets/marbles/chair.png"
+dest_files=["res://.godot/imported/chair.png-13cf18f1680ab74d00fde631a8ea5987.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwu32wl6i4t5o"
-path="res://.godot/imported/rubberband_ball.png-82d50c625844199d3687ed89a92ba36c.ctex"
+uid="uid://qcnc0potod6j"
+path="res://.godot/imported/suika_blob6.png-eb627a7cfaccfd84ba5aa37e24edb230.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/marbles/rubberband_ball.png"
-dest_files=["res://.godot/imported/rubberband_ball.png-82d50c625844199d3687ed89a92ba36c.ctex"]
+source_file="res://assets/temp_marbles/suika_blob6.png"
+dest_files=["res://.godot/imported/suika_blob6.png-eb627a7cfaccfd84ba5aa37e24edb230.ctex"]
 
 [params]
 
