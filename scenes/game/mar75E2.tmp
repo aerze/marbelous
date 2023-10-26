@@ -1,0 +1,300 @@
+[gd_scene load_steps=30 format=3 uid="uid://b5erlu86wh5p1"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_f6q21"]
+[ext_resource type="Texture2D" uid="uid://cormgwc1lnels" path="res://assets/backgrounds/office.png" id="2_af7h7"]
+[ext_resource type="PackedScene" uid="uid://yltqv17bidxv" path="res://marbles/rubberband_ball.tscn" id="3_7l8cw"]
+[ext_resource type="Script" path="res://marbles/marble_set.gd" id="3_b0c8y"]
+[ext_resource type="Texture2D" uid="uid://cwu32wl6i4t5o" path="res://assets/marbles/rubberband_ball.png" id="4_5fghs"]
+[ext_resource type="Script" path="res://scenes/game/cursor.gd" id="4_p21gx"]
+[ext_resource type="PackedScene" uid="uid://bt6f5k8hf6kts" path="res://marbles/crumpled_paper.tscn" id="4_xpd2t"]
+[ext_resource type="Texture2D" uid="uid://bkstiih7i3f87" path="res://assets/marbles/crumpled_paper.png" id="5_d8hd2"]
+[ext_resource type="PackedScene" uid="uid://ijq8w5pqnjk0" path="res://marbles/keycard.tscn" id="5_lho7b"]
+[ext_resource type="PackedScene" uid="uid://1lixpl0mcjgk" path="res://marbles/mouse.tscn" id="6_lgssh"]
+[ext_resource type="Texture2D" uid="uid://2fvyfnhpktpp" path="res://assets/marbles/keycard.png" id="7_m3ga6"]
+[ext_resource type="PackedScene" uid="uid://ct4754fggphk7" path="res://marbles/coffee_mug.tscn" id="7_sarub"]
+[ext_resource type="PackedScene" uid="uid://b0qcqluctud4v" path="res://marbles/coffee.tscn" id="8_hcjn6"]
+[ext_resource type="PackedScene" uid="uid://bgn88mw260yuv" path="res://marbles/keyboard.tscn" id="9_6pldd"]
+[ext_resource type="Texture2D" uid="uid://dpij83m5b55nf" path="res://assets/marbles/mouse.png" id="9_yld26"]
+[ext_resource type="PackedScene" uid="uid://c8xg6pdgc0ty5" path="res://marbles/monitor.tscn" id="10_sr81p"]
+[ext_resource type="Texture2D" uid="uid://cthil0w1on5ai" path="res://assets/marbles/coffee_mug.png" id="11_acsje"]
+[ext_resource type="PackedScene" uid="uid://c26qxfjo4lnqs" path="res://marbles/chair.tscn" id="11_jot50"]
+[ext_resource type="PackedScene" uid="uid://bpbxd16kvio10" path="res://marbles/trophy.tscn" id="12_4ojg6"]
+[ext_resource type="Texture2D" uid="uid://bunpjvnx8srma" path="res://assets/marbles/coffee.png" id="13_hb1uj"]
+[ext_resource type="Texture2D" uid="uid://b2kcol82k5p3k" path="res://assets/marbles/keyboard.png" id="15_ifbpx"]
+[ext_resource type="Texture2D" uid="uid://crhiy34gfwxdq" path="res://assets/marbles/monitor.png" id="17_j84v1"]
+[ext_resource type="Texture2D" uid="uid://c1mh614uq2ogl" path="res://assets/marbles/chair.png" id="19_lhecn"]
+[ext_resource type="Texture2D" uid="uid://ce1l0ugrh83a4" path="res://assets/marbles/trophy.png" id="21_1q2rs"]
+
+[sub_resource type="GDScript" id="GDScript_c34m0"]
+script/source = "extends Node
+
+class_name MarbleManager
+
+@export var marbleSet: MarbleSet;
+
+@onready var main: Main = $\"..\";
+
+# signal marble_drop(position: Vector2)
+signal marble_reload(currentMarble: Marble.Type, nextMarbleType: Marble.Type)
+
+# Marble.Type.MARBLE_1: Vector2(0.2, 0.2),
+# Marble.Type.MARBLE_2: Vector2(0.3, 0.3),
+# Marble.Type.MARBLE_3: Vector2(0.4, 0.4),
+# Marble.Type.MARBLE_4: Vector2(0.5, 0.5),
+# Marble.Type.MARBLE_5: Vector2(0.8, 0.8),
+# Marble.Type.MARBLE_6: Vector2(1.0, 1.0),
+# Marble.Type.MARBLE_7: Vector2(1.4, 1.4),
+# Marble.Type.MARBLE_8: Vector2(1.8, 1.8),
+# Marble.Type.MARBLE_9: Vector2(2.0, 2.0),
+# Marble.Type.MARBLE_10: Vector2(2.2, 2.2),\\
+
+var droppableMarbles: Array[Marble.Type] = [
+	Marble.Type.MARBLE_1,
+	Marble.Type.MARBLE_2,
+	Marble.Type.MARBLE_3,
+	Marble.Type.MARBLE_4
+];
+
+var currentMarbleType: Marble.Type = getRandomMarble();
+var nextMarbleType: Marble.Type = getRandomMarble();
+var keys = Marble.Type.keys();
+
+func getRandomMarble() -> Marble.Type:
+	return droppableMarbles[randi_range(0, droppableMarbles.size() - 1)];
+
+func getAllActiveMarbles() -> Array[Marble]:
+	var marbles: Array[Marble] = [];
+	for node in get_tree().get_nodes_in_group(\"marbles\"):
+		if (node is Marble):
+			marbles.push_front(node as Marble)
+	return marbles;
+
+func reload() -> void:
+	currentMarbleType = nextMarbleType;
+	nextMarbleType = getRandomMarble();
+	marble_reload.emit(currentMarbleType, nextMarbleType);
+	return;
+
+func handleHit(type: Marble.Type, spawnPosition: Vector2):
+	var nextType: Marble.Type = marbleSet.getNextType(type);
+	var marble: Marble = marbleSet.create(nextType, spawnPosition, self);
+	add_sibling(marble);
+	main.handleHit(type);
+	return;
+
+func drop(spawnPosition: Vector2) -> Marble:
+	return marbleSet.create(currentMarbleType, spawnPosition, self);
+
+"
+
+[sub_resource type="Resource" id="Resource_ut3ys"]
+script = ExtResource("3_b0c8y")
+marble_0 = ExtResource("3_7l8cw")
+marble_0_texture = ExtResource("4_5fghs")
+marble_0_points = 2.0
+marble_0_scale = Vector2(1, 1)
+marble_1 = ExtResource("4_xpd2t")
+marble_1_texture = ExtResource("5_d8hd2")
+marble_1_points = 5.0
+marble_1_scale = Vector2(1, 1)
+marble_2 = ExtResource("5_lho7b")
+marble_2_texture = ExtResource("7_m3ga6")
+marble_2_points = 10.0
+marble_2_scale = Vector2(1, 1)
+marble_3 = ExtResource("6_lgssh")
+marble_3_texture = ExtResource("9_yld26")
+marble_3_points = 20.0
+marble_3_scale = Vector2(1, 1)
+marble_4 = ExtResource("7_sarub")
+marble_4_texture = ExtResource("11_acsje")
+marble_4_points = 50.0
+marble_4_scale = Vector2(1, 1)
+marble_5 = ExtResource("8_hcjn6")
+marble_5_texture = ExtResource("13_hb1uj")
+marble_5_points = 75.0
+marble_5_scale = Vector2(1, 1)
+marble_6 = ExtResource("9_6pldd")
+marble_6_texture = ExtResource("15_ifbpx")
+marble_6_points = 100.0
+marble_6_scale = Vector2(1, 1)
+marble_7 = ExtResource("10_sr81p")
+marble_7_texture = ExtResource("17_j84v1")
+marble_7_points = 200.0
+marble_7_scale = Vector2(1, 1)
+marble_8 = ExtResource("11_jot50")
+marble_8_texture = ExtResource("19_lhecn")
+marble_8_points = 300.0
+marble_8_scale = Vector2(1, 1)
+marble_9 = ExtResource("12_4ojg6")
+marble_9_texture = ExtResource("21_1q2rs")
+marble_9_points = 500.0
+marble_9_scale = Vector2(1, 1)
+marble_10_points = 1000.0
+marble_10_scale = Vector2(1, 1)
+last_marble_type = 9
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0tch5"]
+size = Vector2(120, 175)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_27lh5"]
+size = Vector2(400, 175)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v1h67"]
+size = Vector2(780, 454)
+
+[node name="MarbleGame" type="Node2D" groups=["Main"]]
+script = ExtResource("1_f6q21")
+
+[node name="MarbleManager" type="Node" parent="."]
+script = SubResource("GDScript_c34m0")
+marbleSet = SubResource("Resource_ut3ys")
+
+[node name="BackgroundCanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Control" type="Control" parent="BackgroundCanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="BackgroundCanvasLayer/Control"]
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 960.0
+texture = ExtResource("2_af7h7")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(286, 499)
+scale = Vector2(1.12891, 1.56241)
+collision_layer = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(260, -160, 260, 160, -190, 160, -190, -160, -275, -190, -275, 300, 325, 300, 325, -190)
+
+[node name="UICanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UICanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="NextLabel" type="Label" parent="UICanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.0864583
+anchor_bottom = 0.0864583
+offset_left = 22.0
+offset_top = 9.0
+offset_right = 127.0
+offset_bottom = 35.0
+text = "Next Marble: "
+
+[node name="NextTextureRect" type="TextureRect" parent="UICanvasLayer/Control"]
+layout_mode = 1
+offset_left = 133.0
+offset_top = 77.0
+offset_right = 194.0
+offset_bottom = 134.0
+expand_mode = 3
+
+[node name="PointsLabel" type="Label" parent="UICanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0375
+anchor_top = 0.015625
+anchor_right = 0.10625
+anchor_bottom = 0.04375
+offset_right = 105.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 36
+text = "Points: 0"
+metadata/_edit_use_anchors_ = true
+
+[node name="GameStateLabel" type="Label" parent="UICanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.88125
+anchor_top = 0.025
+anchor_right = 0.88125
+anchor_bottom = 0.025
+offset_left = -105.0
+offset_bottom = 26.0
+grow_horizontal = 0
+text = "State: Ready"
+metadata/_edit_use_anchors_ = true
+
+[node name="ResetButton" type="Button" parent="UICanvasLayer/Control"]
+layout_mode = 0
+offset_left = 460.0
+offset_top = 68.0
+offset_right = 586.0
+offset_bottom = 125.0
+text = "Reset"
+
+[node name="MobileControl" type="Control" parent="UICanvasLayer/Control"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LeftButton" type="Button" parent="UICanvasLayer/Control/MobileControl"]
+layout_mode = 0
+offset_left = -9.0
+offset_top = 779.0
+offset_right = 114.0
+offset_bottom = 952.0
+text = "<"
+
+[node name="DropButton" type="Button" parent="UICanvasLayer/Control/MobileControl"]
+layout_mode = 0
+offset_left = 127.0
+offset_top = 781.0
+offset_right = 507.0
+offset_bottom = 953.0
+text = "drop"
+
+[node name="Button3" type="Button" parent="UICanvasLayer/Control/MobileControl"]
+layout_mode = 0
+offset_left = 518.0
+offset_top = 780.0
+offset_right = 641.0
+offset_bottom = 952.0
+text = ">"
+
+[node name="ButtonLeft" type="TouchScreenButton" parent="UICanvasLayer/Control/MobileControl"]
+position = Vector2(52, 865)
+shape = SubResource("RectangleShape2D_0tch5")
+
+[node name="ButtonRight" type="TouchScreenButton" parent="UICanvasLayer/Control/MobileControl"]
+position = Vector2(580, 867)
+shape = SubResource("RectangleShape2D_0tch5")
+
+[node name="ButtonDrop" type="TouchScreenButton" parent="UICanvasLayer/Control/MobileControl"]
+position = Vector2(315, 867)
+shape = SubResource("RectangleShape2D_27lh5")
+
+[node name="drop_cursor" type="Sprite2D" parent="."]
+position = Vector2(570, 255)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_5fghs")
+script = ExtResource("4_p21gx")
+
+[node name="DoNotPassGoZone" type="Area2D" parent="."]
+position = Vector2(320, 0)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoNotPassGoZone"]
+shape = SubResource("RectangleShape2D_v1h67")
+
+[node name="DropCheckTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="pressed" from="UICanvasLayer/Control/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="UICanvasLayer/Control/MobileControl/ButtonDrop" to="." method="_on_button_drop_pressed"]

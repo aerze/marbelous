@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0qcqluctud4v"]
+
+[ext_resource type="Script" path="res://gameplay/marble.gd" id="1_kahal"]
+[ext_resource type="Texture2D" uid="uid://bunpjvnx8srma" path="res://assets/marbles/coffee.png" id="1_oacqc"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_o50eo"]
+friction = 0.5
+bounce = 0.35
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dcd0m"]
+radius = 68.0074
+
+[node name="coffee" type="RigidBody2D"]
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_o50eo")
+max_contacts_reported = 8
+contact_monitor = true
+can_sleep = false
+script = ExtResource("1_kahal")
+
+[node name="coffee" type="Sprite2D" parent="."]
+texture = ExtResource("1_oacqc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_dcd0m")

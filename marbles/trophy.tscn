@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpbxd16kvio10"]
+
+[ext_resource type="Script" path="res://gameplay/marble.gd" id="1_dwbov"]
+[ext_resource type="Texture2D" uid="uid://ce1l0ugrh83a4" path="res://assets/marbles/trophy.png" id="1_y2rwe"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_o50eo"]
+friction = 0.5
+bounce = 0.35
+
+[node name="trophy" type="RigidBody2D"]
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_o50eo")
+max_contacts_reported = 8
+contact_monitor = true
+can_sleep = false
+script = ExtResource("1_dwbov")
+
+[node name="Trophy" type="Sprite2D" parent="."]
+position = Vector2(0, 1)
+texture = ExtResource("1_y2rwe")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(20, -63, 26, -55, 44, -55, 56, -43, 56, -24, 9, 18, 9, 24, 26, 41, 44, 41, 44, 65, -44, 65, -44, 41, -26, 41, -9, 24, -9, 18, -56, -23, -56, -43, -44, -55, -29, -55, -20, -63)

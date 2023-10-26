@@ -1,0 +1,69 @@
+[gd_resource type="Resource" script_class="MarbleSet" load_steps=22 format=3 uid="uid://blubow3o77ngv"]
+
+[ext_resource type="PackedScene" uid="uid://yltqv17bidxv" path="res://marbles/rubberband_ball.tscn" id="1_uj5on"]
+[ext_resource type="Texture2D" uid="uid://cwu32wl6i4t5o" path="res://assets/marbles/rubberband_ball.png" id="2_m755j"]
+[ext_resource type="PackedScene" uid="uid://bt6f5k8hf6kts" path="res://marbles/crumpled_paper.tscn" id="3_wylnj"]
+[ext_resource type="Texture2D" uid="uid://bkstiih7i3f87" path="res://assets/marbles/crumpled_paper.png" id="4_bmvnj"]
+[ext_resource type="PackedScene" uid="uid://ijq8w5pqnjk0" path="res://marbles/keycard.tscn" id="5_63bwv"]
+[ext_resource type="Texture2D" uid="uid://2fvyfnhpktpp" path="res://assets/marbles/keycard.png" id="6_yejek"]
+[ext_resource type="PackedScene" uid="uid://1lixpl0mcjgk" path="res://marbles/mouse.tscn" id="7_6niia"]
+[ext_resource type="Texture2D" uid="uid://dpij83m5b55nf" path="res://assets/marbles/mouse.png" id="8_iiyf1"]
+[ext_resource type="PackedScene" uid="uid://ct4754fggphk7" path="res://marbles/coffee_mug.tscn" id="9_2bq4w"]
+[ext_resource type="Texture2D" uid="uid://cthil0w1on5ai" path="res://assets/marbles/coffee_mug.png" id="10_vy00a"]
+[ext_resource type="PackedScene" uid="uid://b0qcqluctud4v" path="res://marbles/coffee.tscn" id="11_us3y1"]
+[ext_resource type="Texture2D" uid="uid://bunpjvnx8srma" path="res://assets/marbles/coffee.png" id="12_07kro"]
+[ext_resource type="PackedScene" uid="uid://bgn88mw260yuv" path="res://marbles/keyboard.tscn" id="13_minbb"]
+[ext_resource type="Texture2D" uid="uid://b2kcol82k5p3k" path="res://assets/marbles/keyboard.png" id="14_kibj2"]
+[ext_resource type="PackedScene" uid="uid://c8xg6pdgc0ty5" path="res://marbles/monitor.tscn" id="15_ngu5q"]
+[ext_resource type="Texture2D" uid="uid://crhiy34gfwxdq" path="res://assets/marbles/monitor.png" id="16_fldno"]
+[ext_resource type="PackedScene" uid="uid://c26qxfjo4lnqs" path="res://marbles/chair.tscn" id="17_c0fo4"]
+[ext_resource type="Texture2D" uid="uid://c1mh614uq2ogl" path="res://assets/marbles/chair.png" id="18_bvgg5"]
+[ext_resource type="PackedScene" uid="uid://bpbxd16kvio10" path="res://marbles/trophy.tscn" id="19_6mh4x"]
+[ext_resource type="Texture2D" uid="uid://ce1l0ugrh83a4" path="res://assets/marbles/trophy.png" id="20_divg5"]
+[ext_resource type="Script" path="res://gameplay/marble_set.gd" id="21_872di"]
+
+[resource]
+script = ExtResource("21_872di")
+marble_0 = ExtResource("1_uj5on")
+marble_0_texture = ExtResource("2_m755j")
+marble_0_points = 2.0
+marble_0_scale = Vector2(0.2, 0.2)
+marble_1 = ExtResource("3_wylnj")
+marble_1_texture = ExtResource("4_bmvnj")
+marble_1_points = 5.0
+marble_1_scale = Vector2(0.3, 0.3)
+marble_2 = ExtResource("5_63bwv")
+marble_2_texture = ExtResource("6_yejek")
+marble_2_points = 10.0
+marble_2_scale = Vector2(0.4, 0.4)
+marble_3 = ExtResource("7_6niia")
+marble_3_texture = ExtResource("8_iiyf1")
+marble_3_points = 20.0
+marble_3_scale = Vector2(0.5, 0.5)
+marble_4 = ExtResource("9_2bq4w")
+marble_4_texture = ExtResource("10_vy00a")
+marble_4_points = 50.0
+marble_4_scale = Vector2(0.8, 0.8)
+marble_5 = ExtResource("11_us3y1")
+marble_5_texture = ExtResource("12_07kro")
+marble_5_points = 75.0
+marble_5_scale = Vector2(1, 1)
+marble_6 = ExtResource("13_minbb")
+marble_6_texture = ExtResource("14_kibj2")
+marble_6_points = 100.0
+marble_6_scale = Vector2(1.2, 1.2)
+marble_7 = ExtResource("15_ngu5q")
+marble_7_texture = ExtResource("16_fldno")
+marble_7_points = 200.0
+marble_7_scale = Vector2(1.8, 1.8)
+marble_8 = ExtResource("17_c0fo4")
+marble_8_texture = ExtResource("18_bvgg5")
+marble_8_points = 300.0
+marble_8_scale = Vector2(2, 2)
+marble_9 = ExtResource("19_6mh4x")
+marble_9_texture = ExtResource("20_divg5")
+marble_9_points = 500.0
+marble_9_scale = Vector2(2.2, 2.2)
+marble_10_points = 1000.0
+marble_10_scale = Vector2(1, 1)
+last_marble_type = 9

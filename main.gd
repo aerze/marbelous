@@ -2,10 +2,6 @@ extends Node2D
 
 class_name Main
 
-#TODO:
-# - better UI
-# - points
-
 @onready var nextLabel: Label = $UICanvasLayer/Control/NextLabel
 @onready var nextTextureRect: TextureRect = $UICanvasLayer/Control/NextTextureRect
 @onready var pointsLabel: Label = $UICanvasLayer/Control/PointsLabel
@@ -17,9 +13,8 @@ class_name Main
 @onready var button_left: TouchScreenButton = $UICanvasLayer/Control/MobileControl/ButtonLeft
 @onready var button_right: TouchScreenButton = $UICanvasLayer/Control/MobileControl/ButtonRight
 @onready var button_drop: TouchScreenButton = $UICanvasLayer/Control/MobileControl/ButtonDrop
-#@onready var left_button: Button = $UICanvasLayer/Control/MobileControl/LeftButton
-#@onready var drop_button: Button = $UICanvasLayer/Control/MobileControl/DropButton
-#@onready var right_button: Button = $UICanvasLayer/Control/MobileControl/RightButton
+
+@onready var manager: Node = $MarbleManager
 
 enum GameState {
 	READY,
@@ -27,21 +22,19 @@ enum GameState {
 	GAME_OVER,
 }
 
-var Marbles = MarbleManager.new();
 var gameState: GameState = GameState.READY:
 	set(value):
 		gameState = value;
 		gameStateLabel.text = str("GameState: ",  GameState.keys()[value]);
-		
+
 var points: int = 0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# initialize marbles
-	add_child(Marbles);
-	Marbles.reload();
-	Marbles.marble_reload.connect(handleStateUpdate);
+	manager.marble_reload.connect(handleStateUpdate);
 	dropCheckTimer.timeout.connect(handleFinishedDropping);
+	manager.reload();
 	
 	# hide hardware cursor
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN;
@@ -67,7 +60,7 @@ func _process(delta: float) -> void:
 		if (noZone.has_overlapping_bodies()):
 			handleGameOver();
 	return;
-	
+
 func handleInput(delta: float) -> void:
 	if (gameState == GameState.GAME_OVER): return;
 	var left = Input.is_action_pressed("move_left") || button_left.is_pressed();
@@ -79,42 +72,59 @@ func handleInput(delta: float) -> void:
 		cursor.position.x = maxf((cursor.position.x - (cursor.cursorSpeed * delta)), cursor.cursorStart);
 	elif (right):
 		cursor.position.x = minf((cursor.position.x + (cursor.cursorSpeed * delta)), cursor.cursorEnd);
-	
+
 func handleGameOver() -> void:
 	dropCheckTimer.stop();
 	gameState = GameState.GAME_OVER;
-	for marble in Marbles.getAll():
+	for marble in manager.getAllActiveMarbles():
 		marble.freeze = true;
 
 func handleDrop() -> void:
 	if (gameState == GameState.GAME_OVER): return;
 	gameState = GameState.DROPPING;
 	dropCheckTimer.start();
-	add_child(Marbles.drop(cursor.position));
-	Marbles.reload();
+	var marble: Marble = manager.drop(cursor.position)
+	add_child(marble);
+	var scale = manager.marbleSet.getScale(marble.type);
+	manager.reload();
 
 func handleFinishedDropping() -> void:
 	gameState = GameState.READY;
 	return;
 
-func handleStateUpdate(currentMarble: Marble.MarbleType, nextMarble: Marble.MarbleType) -> void:
+func handleStateUpdate(currentMarbleType: Marble.Type, nextMarbleType: Marble.Type) -> void:
 	if (gameState == GameState.GAME_OVER): return;
-#	nextLabel.text = "Next Marble: " + str(Marbles.keys[nextMarble]);
-	nextTextureRect.texture = Marbles.marbleToSprite[nextMarble];
-	cursor.texture = Marbles.marbleToSprite[currentMarble];
+	nextTextureRect.texture = manager.marbleSet.getTexture(nextMarbleType);
+	cursor.texture = manager.marbleSet.getTexture(currentMarbleType);
+	cursor.scale = manager.marbleSet.getScale(currentMarbleType);
 
-func handleHit(type: Marble.MarbleType) -> void:
-	points += Marbles.marbleToPoints[type];
+func handleHit(type: Marble.Type) -> void:
+	points += manager.marbleSet.getPoints(type);
 	pointsLabel.text = str("Points: ", points);
 	pass;
 
 func _on_reset_button_pressed() -> void:
 	if (gameState != GameState.GAME_OVER): return;
-	gameState = GameState.READY;
-	for marble in Marbles.getAll():
+	
+	for marble in manager.getAllActiveMarbles():
 		marble.freeze = true;
 		marble.queue_free();
+	await get_tree().physics_frame;
+	
+	gameState = GameState.READY;
 
+	points = 0;
+	pointsLabel.text = "Points: 0";
+	
+	manager.nextMarbleType = manager.getRandomMarble();
+	manager.currentMarbleType = manager.getRandomMarble();
+	
+	nextTextureRect.texture = manager.marbleSet.getTexture(manager.nextMarbleType);
+	cursor.texture = manager.marbleSet.getTexture(manager.currentMarbleType);
+	cursor.scale = manager.marbleSet.getScale(manager.currentMarbleType);
+	
+	cursor.position.x = cursor.cursorStart;
+	cursor.position.y = cursor.getHeight();
 
 func _on_button_drop_pressed() -> void:
 	handleDrop()

@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://yltqv17bidxv"]
+
+[ext_resource type="Script" path="res://gameplay/marble.gd" id="1_o6t44"]
+[ext_resource type="Texture2D" uid="uid://cwu32wl6i4t5o" path="res://assets/marbles/rubberband_ball.png" id="2_0vfyu"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mxcoj"]
+friction = 0.6
+bounce = 0.85
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2xjgx"]
+radius = 65.0
+
+[node name="rubberband_ball" type="RigidBody2D"]
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_mxcoj")
+max_contacts_reported = 8
+contact_monitor = true
+can_sleep = false
+script = ExtResource("1_o6t44")
+
+[node name="RubberbandBall" type="Sprite2D" parent="."]
+texture = ExtResource("2_0vfyu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2xjgx")

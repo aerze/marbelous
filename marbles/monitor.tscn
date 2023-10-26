@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8xg6pdgc0ty5"]
+
+[ext_resource type="Script" path="res://gameplay/marble.gd" id="1_r682e"]
+[ext_resource type="Texture2D" uid="uid://crhiy34gfwxdq" path="res://assets/marbles/monitor.png" id="1_tiw7v"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_o50eo"]
+friction = 0.5
+bounce = 0.35
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_romn4"]
+size = Vector2(128, 129)
+
+[node name="monitor" type="RigidBody2D"]
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_o50eo")
+max_contacts_reported = 8
+contact_monitor = true
+can_sleep = false
+script = ExtResource("1_r682e")
+
+[node name="Monitor" type="Sprite2D" parent="."]
+texture = ExtResource("1_tiw7v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_romn4")
