@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bulqrhbtfpbmj"]
+[gd_scene load_steps=7 format=3 uid="uid://bulqrhbtfpbmj"]
 
 [ext_resource type="Theme" uid="uid://bp3ada15fcumw" path="res://ui/theme.tres" id="1_1wjfg"]
 [ext_resource type="Script" path="res://scenes/main_menu/main_menu.gd" id="2_e05a5"]
+[ext_resource type="Material" uid="uid://dndspw2tgc6b5" path="res://scenes/main_menu/main_menu_material.tres" id="3_0xqfr"]
+[ext_resource type="AudioStream" uid="uid://cwaaehfltc1s2" path="res://assets/audio/Chill Beat 1.0.wav" id="3_sar0t"]
+[ext_resource type="Texture2D" uid="uid://dyduqwkgni6ok" path="res://assets/temp_marbles/suika_blob4.png" id="4_kv7hj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fymuu"]
 font_size = 100
@@ -24,6 +27,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.133333, 0.12549, 0.203922, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_repeat = 2
+material = ExtResource("3_0xqfr")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_kv7hj")
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 2
@@ -61,5 +75,9 @@ text = "Shop
 [node name="SettingsButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Settings"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_sar0t")
+autoplay = true
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]

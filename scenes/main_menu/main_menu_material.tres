@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dndspw2tgc6b5"]
+
+[ext_resource type="Shader" path="res://scenes/main_menu/main_menu_shader.gdshader" id="1_51uq6"]
+
+[resource]
+shader = ExtResource("1_51uq6")
+shader_parameter/motion = Vector2(100, 100)
+shader_parameter/scale = 1.0
+shader_parameter/offset = Vector2(0, 0)
