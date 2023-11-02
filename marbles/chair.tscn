@@ -20,3 +20,7 @@ texture = ExtResource("1_ir7ar")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(5, -64, 12, -59, 17, -22, 50, -8, 48, 1, 33, -3, 32, 7, 37, 15, 37, 24, 25, 36, 39, 47, 30, 67, 13, 54, -17, 53, -31, 66, -37, 61, -38, 45, -28, 37, -37, 28, -36, 5, -55, -6, -44, -14, -44, -44, -35, -64)
+
+[node name="MarbleCollisionTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true

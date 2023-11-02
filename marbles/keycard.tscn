@@ -24,3 +24,7 @@ texture = ExtResource("3_athme")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_15v5w")
+
+[node name="MarbleCollisionTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true

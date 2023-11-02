@@ -24,3 +24,7 @@ texture = ExtResource("1_oacqc")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 0)
 shape = SubResource("CircleShape2D_dcd0m")
+
+[node name="MarbleCollisionTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true

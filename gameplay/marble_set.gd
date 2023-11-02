@@ -175,13 +175,12 @@ func getNextType(type: Marble.Type) -> Marble.Type:
 	else:
 		return nextType;
 
-func create(type: Marble.Type, position: Vector2, manager: MarbleManager) -> Marble:
+func create(type: Marble.Type, position: Vector2) -> Marble:
 	var marbleScene = getScene(type) as PackedScene;
 	var marble = marbleScene.instantiate() as Marble;
 	var scale = getScale(type);
 	marble.type = type;
 	marble.global_position = position;
-	marble.manager = manager
 	marble.setScale(scale);
 	return marble;
 	

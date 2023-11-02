@@ -25,11 +25,11 @@ boot_splash/minimum_display_time=1500
 
 window/size/viewport_width=640
 window/size/viewport_height=960
-window/size/mode=3
 window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="ignore"
 window/handheld/orientation=1
+window/size/mode.mobile=3
 
 [editor]
 
@@ -76,6 +76,7 @@ move_right={
 2d_physics/layer_1="Marbles"
 2d_physics/layer_2="Container"
 2d_physics/layer_3="NoGoZone"
+2d_physics/layer_4="Active Marbles"
 
 [rendering]
 

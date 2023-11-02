@@ -10,3 +10,7 @@ class_name CursorSprite2D
 
 func getHeight() -> float:
 	return cursorFloor - cursorHeight;
+
+func _ready() -> void:
+	position.x = cursorStart;
+	position.y = getHeight();
