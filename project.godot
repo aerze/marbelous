@@ -21,6 +21,10 @@ boot_splash/use_filter=false
 config/icon="res://icon.svg"
 boot_splash/minimum_display_time=1500
 
+[autoload]
+
+Global="*res://global.gd"
+
 [display]
 
 window/size/viewport_width=640
@@ -41,8 +45,8 @@ enabled=PackedStringArray("res://addons/nklbdev.importality/plugin.cfg")
 
 [importality]
 
-temporary_files_directory_path="C:/Users/abby/projects/godot_demo/temp"
-aseprite_or_libre_sprite_command="C:\\Program Files\\Aseprite\\Aseprite.exe"
+temporary_files_directory_path="C:\\Users\\aerze\\Projects\\temp"
+aseprite_or_libre_sprite_command="C:\\Program Files (x86)\\Steam\\steamapps\\common\\Aseprite\\Aseprite.exe"
 
 [input]
 
