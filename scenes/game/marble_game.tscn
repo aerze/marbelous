@@ -34,18 +34,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BackgroundTextureRect" type="TextureRect" parent="BackgroundCanvasLayer/Control"]
+[node name="TextureRect" type="TextureRect" parent="BackgroundCanvasLayer/Control"]
 layout_mode = 0
 offset_right = 640.0
 offset_bottom = 960.0
 texture = ExtResource("2_af7h7")
 
-[node name="ContainerStaticBody2D" type="StaticBody2D" parent="."]
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(286, 499)
 scale = Vector2(1.12891, 1.56241)
 collision_layer = 2
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ContainerStaticBody2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 polygon = PackedVector2Array(260, -160, 260, 160, -190, 160, -190, -160, -275, -190, -275, 300, 325, 300, 325, -190)
 
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
@@ -163,7 +163,6 @@ script = ExtResource("4_p21gx")
 [node name="DoNotPassGoZone" type="Area2D" parent="."]
 position = Vector2(320, 0)
 collision_layer = 4
-collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoNotPassGoZone"]
 shape = SubResource("RectangleShape2D_v1h67")
@@ -171,6 +170,5 @@ shape = SubResource("RectangleShape2D_v1h67")
 [node name="DropCheckTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="marble_matched" from="MarbleManager" to="." method="handleHit"]
 [connection signal="pressed" from="UICanvasLayer/Control/ResetButton" to="." method="_on_reset_button_pressed"]
 [connection signal="pressed" from="UICanvasLayer/Control/MobileControl/ButtonDrop" to="." method="_on_button_drop_pressed"]

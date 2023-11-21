@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bae57u81077ss"]
+
+[ext_resource type="Texture2D" uid="uid://df1gx88ts2fgm" path="res://assets/gacha/case_closed.png" id="1_05hup"]
+[ext_resource type="Script" path="res://falling_case.gd" id="1_u1iuy"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ebyb8"]
+bounce = 0.15
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jfbvw"]
+size = Vector2(140, 56)
+
+[node name="RigidBody2D" type="RigidBody2D" groups=["falling_cases"]]
+physics_material_override = SubResource("PhysicsMaterial_ebyb8")
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_u1iuy")
+
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["falling_cases_textures"]]
+position = Vector2(0, -49)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_05hup")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(6, 21)
+shape = SubResource("RectangleShape2D_jfbvw")

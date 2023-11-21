@@ -85,7 +85,7 @@ func getScene(type: Marble.Type) -> PackedScene:
 			return marble_10;
 		_:
 			return marble_0;
-	
+
 func getTexture(type: Marble.Type) -> CompressedTexture2D:
 	match type:
 		Marble.Type.MARBLE_0:
@@ -183,4 +183,4 @@ func create(type: Marble.Type, position: Vector2) -> Marble:
 	marble.global_position = position;
 	marble.setScale(scale);
 	return marble;
-	
+

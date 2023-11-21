@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8msbpq0baeww"]
+[gd_scene load_steps=4 format=3 uid="uid://bweuy41w2qxlu"]
 
 [ext_resource type="Script" path="res://gameplay/marble.gd" id="1_q745b"]
 [ext_resource type="Texture2D" uid="uid://dyduqwkgni6ok" path="res://assets/temp_marbles/suika_blob4.png" id="2_2dawu"]

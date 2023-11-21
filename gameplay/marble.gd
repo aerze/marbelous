@@ -34,17 +34,17 @@ func _ready() -> void:
 func handleBodyEntered(body: Node) -> void:
 	if (hit || !(body is Marble)):
 		return;
-		
+
 	if (body.type == type):
 		if (body.hit):
 			return;
 
 		hit = true;
 		body.hit = true;
-		
+
 		var spawnPosition = (global_position + body.global_position)/2;
 		match_hit.emit(type, spawnPosition);
-		
+
 		body.queue_free()
 		queue_free()
 	return;

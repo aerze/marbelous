@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://pfxlswo4vphx"]
+[gd_scene load_steps=8 format=3 uid="uid://pfxlswo4vphx"]
 
 [ext_resource type="Script" path="res://scenes/gacha_shop/gacha_shop.gd" id="1_0w325"]
 [ext_resource type="Theme" uid="uid://bp3ada15fcumw" path="res://ui/theme.tres" id="2_ujqj1"]
 [ext_resource type="Texture2D" uid="uid://dlp0tpceacfri" path="res://assets/gacha/case_open.png" id="3_8u4hr"]
 [ext_resource type="Texture2D" uid="uid://df1gx88ts2fgm" path="res://assets/gacha/case_closed.png" id="3_fnrvt"]
+[ext_resource type="PackedScene" uid="uid://bae57u81077ss" path="res://falling_case.tscn" id="5_5t4vg"]
+[ext_resource type="AudioStream" uid="uid://crexfmvma45hb" path="res://assets/audio/vine-boom.mp3" id="6_ay6sg"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ebyb8"]
+bounce = 0.15
 
 [node name="gacha_shop" type="Node2D"]
 script = ExtResource("1_0w325")
@@ -31,6 +36,7 @@ grow_vertical = 2
 alignment = 2
 
 [node name="CaseRect" type="TextureRect" parent="CanvasLayer/MainControl/VBoxContainer"]
+visible = false
 layout_mode = 2
 texture = ExtResource("3_fnrvt")
 expand_mode = 4
@@ -57,6 +63,7 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 45
 text = "$0000"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="ResultsLabel" type="Label" parent="CanvasLayer/MainControl"]
 layout_mode = 1
@@ -74,6 +81,70 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 60
 horizontal_alignment = 1
 
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(320, 829)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(360, -133, 360, -800, 600, -803, 613, 453, -631, 467, -618, -787, -344, -789, -344, -133)
+
+[node name="RigidBody2D2" parent="." instance=ExtResource("5_5t4vg")]
+position = Vector2(463, -247)
+
+[node name="RigidBody2D3" parent="." instance=ExtResource("5_5t4vg")]
+position = Vector2(332, -412)
+
+[node name="RigidBody2D4" parent="." instance=ExtResource("5_5t4vg")]
+position = Vector2(452, -574)
+
+[node name="RigidBody2D5" parent="." instance=ExtResource("5_5t4vg")]
+position = Vector2(228, -664)
+
+[node name="RigidBody2D6" parent="." instance=ExtResource("5_5t4vg")]
+position = Vector2(222, -869)
+
+[node name="RigidBody2D7" parent="." instance=ExtResource("5_5t4vg")]
+position = Vector2(502, -1140)
+
+[node name="RigidBody2D8" parent="." instance=ExtResource("5_5t4vg")]
+position = Vector2(241, -1494)
+
+[node name="RigidBody2D9" parent="." instance=ExtResource("5_5t4vg")]
+position = Vector2(487, -1916)
+
+[node name="RigidBody2D10" parent="." instance=ExtResource("5_5t4vg")]
+position = Vector2(331, -3225)
+
+[node name="RigidBody2D11" type="RigidBody2D" parent="." groups=["falling_cases"]]
+position = Vector2(266, -5120)
+mass = 15.0
+physics_material_override = SubResource("PhysicsMaterial_ebyb8")
+max_contacts_reported = 2
+contact_monitor = true
+can_sleep = false
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D11" groups=["falling_cases_textures"]]
+position = Vector2(-2.33333, -116.667)
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("3_fnrvt")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D11"]
+position = Vector2(-2, 69.6667)
+polygon = PackedVector2Array(-189, -50.667, 53.6667, -46.3334, 225, -38.667, 185.667, 47.6666, -3, 127, -135, 32.6666)
+
+[node name="BigBoiTimer" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_ay6sg")
+volume_db = -15.0
+max_polyphony = 3
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_ay6sg")
+volume_db = -10.0
+pitch_scale = 0.85
+max_polyphony = 3
+
 [connection signal="pressed" from="CanvasLayer/MainControl/VBoxContainer/ButtonBuy1" to="." method="_on_button_buy_1_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainControl/VBoxContainer/ButtonBuy10" to="." method="_on_button_buy_10_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainControl/VBoxContainer/ButtonBack" to="." method="_on_button_back_pressed"]
+[connection signal="body_entered" from="RigidBody2D11" to="." method="_on_rigid_body_2d_11_body_entered"]

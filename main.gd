@@ -52,9 +52,9 @@ func _ready() -> void:
 	gamestate_changed.connect(handleGameStateChanged);
 	handleGameStateChanged(gameState);
 	marbles.marble_reloaded.connect(updateUI);
-	
+
 	marbles.reload();
-	
+
 	if (isAndroid):
 		mobile_control.show();
 	return;
@@ -68,7 +68,7 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	if (gameState == GameState.GAME_OVER): return;
 	handleCursorMovement(delta);
-	
+
 	if (noZone.has_overlapping_bodies()):
 		gameState = GameState.GAME_OVER;
 	return;
@@ -76,7 +76,7 @@ func _process(delta: float) -> void:
 func handleCursorMovement(delta: float) -> void:
 	var left = Input.is_action_pressed("move_left") || button_left.is_pressed();
 	var right = Input.is_action_pressed("move_right") || button_right.is_pressed();
-	
+
 	# if (left || right):
 	# 	cursor.position.y = cursor.getHeight();
 	if (left):
@@ -100,24 +100,24 @@ func handleHit(type: Marble.Type) -> void:
 
 func _on_reset_button_pressed() -> void:
 	if (gameState != GameState.GAME_OVER): return;
-	
+
 	for marble in marbles.getAllActiveMarbles():
 		marble.freeze = true;
 		marble.queue_free();
 	await get_tree().physics_frame;
-	
+
 	gameState = GameState.PLAYING;
 
 	points = 0;
 	pointsLabel.text = "Points: 0";
-	
+
 	marbles.nextMarbleType = marbles.getRandomDroppableMarbleType();
 	marbles.currentMarbleType = marbles.getRandomDroppableMarbleType();
-	
+
 	nextTextureRect.texture = marbles.marbleSet.getTexture(marbles.nextMarbleType);
 	cursor.texture = marbles.marbleSet.getTexture(marbles.currentMarbleType);
 	cursor.scale = marbles.marbleSet.getScale(marbles.currentMarbleType);
-	
+
 	cursor.position.x = cursor.cursorStart;
 	cursor.position.y = cursor.getHeight();
 
