@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=3 uid="uid://pfxlswo4vphx"]
+
+[ext_resource type="Script" path="res://scenes/gacha_shop/gacha_shop.gd" id="1_0w325"]
+[ext_resource type="Theme" uid="uid://bp3ada15fcumw" path="res://ui/theme.tres" id="2_ujqj1"]
+[ext_resource type="Texture2D" uid="uid://dlp0tpceacfri" path="res://assets/gacha/case_open.png" id="3_8u4hr"]
+[ext_resource type="Texture2D" uid="uid://df1gx88ts2fgm" path="res://assets/gacha/case_closed.png" id="3_fnrvt"]
+
+[node name="gacha_shop" type="Node2D"]
+script = ExtResource("1_0w325")
+CASE_CLOSED_TEXTURE = ExtResource("3_fnrvt")
+CASE_OPEN_TEXTURE = ExtResource("3_8u4hr")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MainControl" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_ujqj1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="CaseRect" type="TextureRect" parent="CanvasLayer/MainControl/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_fnrvt")
+expand_mode = 4
+stretch_mode = 4
+
+[node name="ButtonBuy1" type="Button" parent="CanvasLayer/MainControl/VBoxContainer"]
+layout_mode = 2
+text = "Buy 1"
+
+[node name="ButtonBuy10" type="Button" parent="CanvasLayer/MainControl/VBoxContainer"]
+layout_mode = 2
+text = "Buy 10"
+
+[node name="ButtonBack" type="Button" parent="CanvasLayer/MainControl/VBoxContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="WalletLabel" type="Label" parent="CanvasLayer/MainControl"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 66.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 45
+text = "$0000"
+horizontal_alignment = 1
+
+[node name="ResultsLabel" type="Label" parent="CanvasLayer/MainControl"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -320.0
+offset_right = 319.0
+offset_bottom = -234.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 60
+horizontal_alignment = 1
+
+[connection signal="pressed" from="CanvasLayer/MainControl/VBoxContainer/ButtonBuy1" to="." method="_on_button_buy_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainControl/VBoxContainer/ButtonBuy10" to="." method="_on_button_buy_10_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainControl/VBoxContainer/ButtonBack" to="." method="_on_button_back_pressed"]
