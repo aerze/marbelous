@@ -13,6 +13,8 @@ class_name Main
 @onready var button_left: TouchScreenButton = $UICanvasLayer/Control/MobileControl/ButtonLeft
 @onready var button_right: TouchScreenButton = $UICanvasLayer/Control/MobileControl/ButtonRight
 @onready var button_drop: TouchScreenButton = $UICanvasLayer/Control/MobileControl/ButtonDrop
+@onready var reset_button: Button = $UICanvasLayer/Control/ResetButton
+@onready var main_menu_button: Button = $UICanvasLayer/Control/MainMenuButton
 
 @onready var marbles: MarbleManager = $MarbleManager
 
@@ -21,17 +23,17 @@ enum GameState {
 	GAME_OVER,
 }
 
-var gameState: GameState = GameState.PLAYING:
-	set(newGameState):
-		if (gameState != newGameState):
-#			var oldGameState: GameState = gameState;
-			gameState = newGameState;
-			gamestate_changed.emit(newGameState);
-		else: return;
-
 var points: int = 0;
 
 var isAndroid = OS.get_name() == "Android";
+
+var gameState: GameState = GameState.PLAYING:
+	#  THIS IS A SETTER FOR gameState
+	set(newGameState):
+		if (gameState != newGameState):
+			gameState = newGameState;
+			gamestate_changed.emit(newGameState);
+		else: return;
 
 signal gamestate_changed(newGameState: GameState);
 
@@ -40,10 +42,16 @@ func handleGameStateChanged(newGameState: GameState):
 	match (newGameState):
 		GameState.PLAYING:
 			Input.mouse_mode = Input.MOUSE_MODE_HIDDEN;
+			reset_button.visible = false;
+			main_menu_button.visible = false;
 			return;
 		GameState.GAME_OVER:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE;
 			marbles.freezeAll();
+			Global.playerData.wallet += points
+			reset_button.visible = true;
+			main_menu_button.visible = true;
+			Global.saveGame();
 			return;
 
 # Called when the node enters the scene tree for the first time.
@@ -52,7 +60,7 @@ func _ready() -> void:
 	gamestate_changed.connect(handleGameStateChanged);
 	handleGameStateChanged(gameState);
 	marbles.marble_reloaded.connect(updateUI);
-
+	marbles.marble_matched.connect(handleMarbleMatched);
 	marbles.reload();
 
 	if (isAndroid):
@@ -93,13 +101,12 @@ func updateUI(currentMarbleType: Marble.Type, nextMarbleType: Marble.Type) -> vo
 	cursor.texture = marbles.marbleSet.getTexture(currentMarbleType);
 	cursor.scale = marbles.marbleSet.getScale(currentMarbleType);
 
-func handleHit(type: Marble.Type) -> void:
+func handleMarbleMatched(type: Marble.Type) -> void:
 	points += marbles.marbleSet.getPoints(type);
 	pointsLabel.text = str("Points: ", points);
 	pass;
 
 func _on_reset_button_pressed() -> void:
-	if (gameState != GameState.GAME_OVER): return;
 
 	for marble in marbles.getAllActiveMarbles():
 		marble.freeze = true;
@@ -123,4 +130,9 @@ func _on_reset_button_pressed() -> void:
 
 func _on_button_drop_pressed() -> void:
 	handleDrop()
+	pass # Replace with function body.
+
+
+func _on_main_menu_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn");
 	pass # Replace with function body.

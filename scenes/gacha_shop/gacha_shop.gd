@@ -12,9 +12,14 @@ extends Node2D
 @onready var big_boi_timer: Timer = $BigBoiTimer
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 @onready var audio_stream_player_2: AudioStreamPlayer = $AudioStreamPlayer2
+@onready var single_timer: Timer = $SingleTimer
+@onready var pack_timer: Timer = $PackTimer
 
 var isRolling = false;
 var cases: Array[RigidBody2D] = [];
+
+var singlePrice: int = 1000;
+var packPrice: int = 10000;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,12 +30,12 @@ func _ready() -> void:
 			node.firstCollision.connect(handleCollisionSound, CONNECT_ONE_SHOT);
 		if (node is RigidBody2D):
 			cases.push_back(node);
+
+	if (Global.playerData.wallet >= singlePrice): button_buy_1.disabled = false;
+	if (Global.playerData.wallet >= packPrice): button_buy_10.disabled = false;
+
 	return;
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func resetRollAnimations() -> void:
 	case_rect.texture = CASE_CLOSED_TEXTURE;
@@ -40,7 +45,33 @@ func resetRollAnimations() -> void:
 
 
 func _on_button_buy_1_pressed() -> void:
-	cases[0].freeze = false;
+	# spend money
+	var purchaseSuccessful = Global.spendFromWallet(singlePrice);
+	if (!purchaseSuccessful): return;
+
+	var singleCase: FallingCase = cases[0];
+
+	# cases falls
+	singleCase.freeze = false;
+	await singleCase.firstCollision;
+
+	single_timer.wait_time = 1;
+	single_timer.start();
+	await single_timer.timeout;
+
+
+	# open case
+	popAllCases();
+
+	# set results text
+	results_label.text = "YOU GOT A THING!"
+
+	single_timer.wait_time = 5;
+	single_timer.start();
+	await single_timer.timeout;
+
+	# head back to main menu
+	get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn");
 
 	# for node in get_tree().get_nodes_in_group("falling_cases_textures"):
 	# 	node.texture = CASE_OPEN_TEXTURE;
@@ -68,9 +99,28 @@ func _on_button_buy_1_pressed() -> void:
 	return;
 
 func _on_button_buy_10_pressed() -> void:
+	# spend money
+	var purchaseSuccessful = Global.spendFromWallet(packPrice);
+	if (!purchaseSuccessful): return;
+
 	for case in cases:
 		case.freeze = false;
-	# purchaseCharacter(10);
+
+	await big_boi_timer.timeout
+	popAllCases()
+
+
+	# set results text
+	results_label.text = "YOU GOT 10 THING!"
+
+
+	pack_timer.wait_time = 5;
+	pack_timer.start();
+	await pack_timer.timeout;
+
+	# head back to main menu
+	get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn");
+
 	return;
 
 func _on_button_back_pressed() -> void:
@@ -81,11 +131,8 @@ func _on_button_back_pressed() -> void:
 		get_tree().change_scene_to_file("res://scenes/main_menu/main_menu.tscn");
 	return;
 
-
-
-
 func purchaseCharacter(amountToPurchase: int) -> void:
-	var purchaseSuccessful = Global.walletSpend(amountToPurchase);
+	var purchaseSuccessful = Global.spendFromWallet(amountToPurchase);
 
 	if (purchaseSuccessful):
 		wallet_label.text = Global.walletToString();
@@ -108,13 +155,12 @@ func purchaseCharacter(amountToPurchase: int) -> void:
 var hasHitSumthin = false;
 
 func _on_rigid_body_2d_11_body_entered(body: Node) -> void:
-	print(">> collided?");
 	if (hasHitSumthin): return;
 	hasHitSumthin = true;
 	audio_stream_player_2.play(0);
-	big_boi_timer.timeout.connect(popAllCases, CONNECT_ONE_SHOT);
+	# big_boi_timer.timeout.connect(popAllCases, CONNECT_ONE_SHOT);
 	big_boi_timer.start(1);
-	pass # Replace with function body.
+	return;
 
 func popAllCases() -> void:
 	print(">> popped");

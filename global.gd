@@ -30,11 +30,10 @@ func saveGame() -> void:
 func walletToString() -> String:
 	return str("$", playerData.wallet);
 
-func walletSpend(amount: int) -> bool:
+func spendFromWallet(amount: int) -> bool:
 	if (amount > playerData.wallet):
 		return false;
 	else:
 		playerData.wallet -= amount;
 		saveGame();
 		return true;
-

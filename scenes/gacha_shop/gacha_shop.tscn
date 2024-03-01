@@ -44,11 +44,13 @@ stretch_mode = 4
 
 [node name="ButtonBuy1" type="Button" parent="CanvasLayer/MainControl/VBoxContainer"]
 layout_mode = 2
-text = "Buy 1"
+disabled = true
+text = "Buy 1 ($1,000)"
 
 [node name="ButtonBuy10" type="Button" parent="CanvasLayer/MainControl/VBoxContainer"]
 layout_mode = 2
-text = "Buy 10"
+disabled = true
+text = "Buy 10 ($10,000)"
 
 [node name="ButtonBack" type="Button" parent="CanvasLayer/MainControl/VBoxContainer"]
 layout_mode = 2
@@ -143,6 +145,12 @@ stream = ExtResource("6_ay6sg")
 volume_db = -10.0
 pitch_scale = 0.85
 max_polyphony = 3
+
+[node name="SingleTimer" type="Timer" parent="."]
+
+[node name="PackTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
 
 [connection signal="pressed" from="CanvasLayer/MainControl/VBoxContainer/ButtonBuy1" to="." method="_on_button_buy_1_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainControl/VBoxContainer/ButtonBuy10" to="." method="_on_button_buy_10_pressed"]

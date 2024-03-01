@@ -4,57 +4,57 @@ class_name MarbleSet
 
 @export var marble_0: PackedScene;
 @export var marble_0_texture: CompressedTexture2D;
-@export var marble_0_points: float = 2;
+@export var marble_0_points: int = 2;
 @export var marble_0_scale: Vector2 = Vector2(1, 1);
 
 @export var marble_1: PackedScene;
 @export var marble_1_texture: CompressedTexture2D;
-@export var marble_1_points: float = 5;
+@export var marble_1_points: int = 5;
 @export var marble_1_scale: Vector2 = Vector2(1, 1);
 
 @export var marble_2: PackedScene;
 @export var marble_2_texture: CompressedTexture2D;
-@export var marble_2_points: float = 10;
+@export var marble_2_points: int = 10;
 @export var marble_2_scale: Vector2 = Vector2(1, 1);
 
 @export var marble_3: PackedScene;
 @export var marble_3_texture: CompressedTexture2D;
-@export var marble_3_points: float = 20;
+@export var marble_3_points: int = 20;
 @export var marble_3_scale: Vector2 = Vector2(1, 1);
 
 @export var marble_4: PackedScene;
 @export var marble_4_texture: CompressedTexture2D;
-@export var marble_4_points: float = 50;
+@export var marble_4_points: int = 50;
 @export var marble_4_scale: Vector2 = Vector2(1, 1);
 
 @export var marble_5: PackedScene;
 @export var marble_5_texture: CompressedTexture2D;
-@export var marble_5_points: float = 75;
+@export var marble_5_points: int = 75;
 @export var marble_5_scale: Vector2 = Vector2(1, 1);
 
 @export var marble_6: PackedScene;
 @export var marble_6_texture: CompressedTexture2D;
-@export var marble_6_points: float = 100;
+@export var marble_6_points: int = 100;
 @export var marble_6_scale: Vector2 = Vector2(1, 1);
 
 @export var marble_7: PackedScene;
 @export var marble_7_texture: CompressedTexture2D;
-@export var marble_7_points: float = 200;
+@export var marble_7_points: int = 200;
 @export var marble_7_scale: Vector2 = Vector2(1, 1);
 
 @export var marble_8: PackedScene;
 @export var marble_8_texture: CompressedTexture2D;
-@export var marble_8_points: float = 300;
+@export var marble_8_points: int = 300;
 @export var marble_8_scale: Vector2 = Vector2(1, 1);
 
 @export var marble_9: PackedScene;
 @export var marble_9_texture: CompressedTexture2D;
-@export var marble_9_points: float = 500;
+@export var marble_9_points: int = 500;
 @export var marble_9_scale: Vector2 = Vector2(1, 1);
 
 @export var marble_10: PackedScene;
 @export var marble_10_texture: CompressedTexture2D;
-@export var marble_10_points: float = 1000;
+@export var marble_10_points: int = 1000;
 @export var marble_10_scale: Vector2 = Vector2(1, 1);
 
 @export var last_marble_type: Marble.Type = Marble.Type.MARBLE_END;

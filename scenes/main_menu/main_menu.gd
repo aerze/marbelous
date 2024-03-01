@@ -12,7 +12,7 @@ func _on_shop_button_pressed() -> void:
 	return;
 
 func _on_settings_button_pressed() -> void:
-	Global.playerData.wallet = 100;
+	Global.playerData.wallet = 1000000000;
 	Global.playerData.roll_count = 5;
 	Global.saveGame();
 	return;
