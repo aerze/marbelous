@@ -163,6 +163,7 @@ script = ExtResource("4_p21gx")
 [node name="DoNotPassGoZone" type="Area2D" parent="."]
 position = Vector2(320, 0)
 collision_layer = 4
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoNotPassGoZone"]
 shape = SubResource("RectangleShape2D_v1h67")
